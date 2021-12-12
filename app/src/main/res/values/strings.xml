@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name" translatable="false">WebFactory</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">WebFactory</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings" translatable="false">Настройки</string>
+    <string name="action_exit" translatable="false">Выход</string>
+
+    <string name="menu_home" translatable="false">Главная</string>
+    <string name="menu_calendar" translatable="false">Календарь выходных</string>
+    <string name="menu_review" translatable="false">Отзывы</string>
+    <string name="menu_polls" translatable="false">Анкетирование</string>
+    <string name="button_review">Отзыв</string>
+    <string name="demo_review">Оставьте ваш отзыв</string>
+    <string name="toast_review">Отзыв создан!</string>
+    <string name="btn_str_del_review">Удалить отзыв</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
