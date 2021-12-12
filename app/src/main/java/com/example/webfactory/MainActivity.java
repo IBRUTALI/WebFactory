@@ -29,8 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    RecyclerView categoryRecycler;
-    CategoryAdapter categoryAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,29 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        List<Category> categoryList = new ArrayList<>();
-//        categoryList.add(new Category(1, "Game"));
-//        categoryList.add(new Category(2, "Gay"));
-//        categoryList.add(new Category(3, "Frog"));
-//        categoryList.add(new Category(4, "Alex"));
-
-//        categoryRecycler = findViewById(R.id.categoryRecycler);
-//
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        categoryRecycler.setLayoutManager(layoutManager);
-//
-//        categoryAdapter = new CategoryAdapter(this, categoryList);
-//        categoryRecycler.setAdapter(categoryAdapter);
-
-        //setCategoryRecycler(categoryList);
-
-//        br.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -74,20 +50,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-//static List<Category> getList(List<Category> categoryList){
-//        return categoryList;
-//}
-//    private void setCategoryRecycler(List<Category> categoryList) {
-//
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-//
-//        categoryRecycler = findViewById(R.id.categoryRecycler);
-//        categoryRecycler.setLayoutManager(layoutManager);
-//
-//        categoryAdapter = new CategoryAdapter(this, categoryList);
-//        categoryRecycler.setAdapter(categoryAdapter);
-//
-//    }
+
 
     //Меню
     @Override

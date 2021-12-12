@@ -35,7 +35,7 @@ public class SlideshowFragment extends Fragment {
 
 
     private SlideshowViewModel slideshowViewModel;
-    List<Category> categoryList1= new ArrayList<>();
+
     private int count=0;
 
     @Override
@@ -56,7 +56,7 @@ public class SlideshowFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.categoryRecycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), categoryList1);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), slideshowViewModel.categoryList);
         recyclerView.setAdapter(categoryAdapter);
 
         br.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class SlideshowFragment extends Fragment {
                 String a1 = editText1.getText().toString();
                 String a2 = editText2.getText().toString();
 
-                categoryList1.add(new Category(count, a1, a2));
+                slideshowViewModel.addItem(count, a1, a2);
                 count++;
                 showToast();
                 alertDialog.dismiss();
@@ -114,6 +114,4 @@ public class SlideshowFragment extends Fragment {
     public void showToast() {
         Toast.makeText(getContext(), R.string.toast_review, Toast.LENGTH_SHORT).show();
     }
-
-
 }
