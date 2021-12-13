@@ -15,7 +15,12 @@
     <string name="button_review">Отзыв</string>
     <string name="demo_review">Оставьте ваш отзыв</string>
     <string name="toast_review">Отзыв создан!</string>
+    <string name="toast_polls">Анкета создана!</string>
     <string name="btn_str_del_review">Удалить отзыв</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_str_polls_create">Создать анкету</string>
+    <string name="alert_polls_title_str">Заголовок анкеты</string>
+    <string name="ask_polls_str">Ваш вопрос</string>
+    <string name="send_polls_str">Отправить анкету</string>
 </resources>

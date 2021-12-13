@@ -35,7 +35,6 @@ public class SlideshowFragment extends Fragment {
 
 
     private SlideshowViewModel slideshowViewModel;
-
     private int count=0;
 
     @Override
