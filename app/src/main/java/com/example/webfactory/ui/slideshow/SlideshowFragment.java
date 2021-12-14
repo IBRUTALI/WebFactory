@@ -70,7 +70,7 @@ public class SlideshowFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.categoryRecycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), review_id, review_title, review_description);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), getContext(), review_id, review_title, review_description);
         recyclerView.setAdapter(categoryAdapter);
 
         br.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +125,14 @@ public class SlideshowFragment extends Fragment {
         ConstraintLayout cl = (ConstraintLayout) getLayoutInflater().inflate(R.layout.alert_review, null);
         dialog.setView(cl);
         dialog.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+
+        }
     }
 
     void storeDataInArrays(){

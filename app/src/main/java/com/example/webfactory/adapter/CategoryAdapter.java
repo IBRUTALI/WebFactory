@@ -23,8 +23,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     Context context;
     ArrayList review_id, review_title, review_description;
+    Activity activity;
 
-    public CategoryAdapter(Context context, ArrayList review_id, ArrayList review_title, ArrayList review_description) {
+    public CategoryAdapter(Activity activity, Context context, ArrayList review_id, ArrayList review_title, ArrayList review_description) {
+        this.activity = activity;
         this.context = context;
         this.review_id = review_id;
         this.review_title = review_title;
@@ -50,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 intent.putExtra("reviewId", String.valueOf(review_id.get(position)));
                 intent.putExtra("reviewTitle", String.valueOf(review_title.get(position)));
                 intent.putExtra("reviewDescription", String.valueOf(review_description.get(position)));
-                context.startActivity(intent);
+                activity.startActivityForResult(intent, 1);
             }
         });
     }

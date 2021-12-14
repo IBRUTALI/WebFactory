@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:contentDescription="@string/app_name"
+        android:paddingBottom="1dp"
+        android:layout_marginVertical="1dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
