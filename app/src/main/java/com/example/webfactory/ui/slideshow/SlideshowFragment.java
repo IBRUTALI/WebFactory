@@ -1,7 +1,10 @@
 package com.example.webfactory.ui.slideshow;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.webfactory.Databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.adapter.CategoryAdapter;
 import com.example.webfactory.model.Category;
@@ -35,11 +39,33 @@ public class SlideshowFragment extends Fragment {
 
 
     private SlideshowViewModel slideshowViewModel;
-    private int count=0;
+    DBHelperReview dBHelperReview;
+    ArrayList<String> review_id, review_title, review_description;
+    //private int count=0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dBHelperReview =new DBHelperReview(getContext());
+        review_id = new ArrayList<>();
+        review_title = new ArrayList<>();
+        review_description = new ArrayList<>();
+
+        storeDataInArrays();
+
+    }
+
+    void storeDataInArrays(){
+        Cursor cursor = dBHelperReview.readAllData();
+        if(cursor.getCount() == 0){
+            Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                review_id.add(cursor.getString(0));
+                review_title.add(cursor.getString(1));
+                review_description.add(cursor.getString(2));
+            }
+        }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,11 +77,12 @@ public class SlideshowFragment extends Fragment {
 
         Button br = root.findViewById(R.id.button_review);
 
+
         //Подруб адаптера и списка
         RecyclerView recyclerView = root.findViewById(R.id.categoryRecycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), slideshowViewModel.categoryList);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), review_id, review_title, review_description);
         recyclerView.setAdapter(categoryAdapter);
 
         br.setOnClickListener(new View.OnClickListener() {
@@ -83,14 +110,20 @@ public class SlideshowFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
+                SQLiteDatabase database = dBHelperReview.getWritableDatabase();
+                ContentValues contentValues = new ContentValues();
+
                 AlertDialog alertDialog = (AlertDialog) dialogInterface;
                 EditText editText1 = alertDialog.findViewById(R.id.reviewTitle);
                 EditText editText2 = alertDialog.findViewById(R.id.reviewDescription);
                 String a1 = editText1.getText().toString();
                 String a2 = editText2.getText().toString();
-
-                slideshowViewModel.addItem(count, a1, a2);
-                count++;
+                contentValues.put(DBHelperReview.KEY_TITLE, a1);
+                contentValues.put(DBHelperReview.KEY_DESCRIPTION, a2);
+                database.insert(DBHelperReview.TABLE_REVIEW, null, contentValues);
+                dBHelperReview.close();
+//                slideshowViewModel.addItem(count, a1, a2);
+//                count++;
                 showToast();
                 alertDialog.dismiss();
 
