@@ -3,6 +3,7 @@ package com.example.webfactory.ui.slideshow;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -41,31 +42,11 @@ public class SlideshowFragment extends Fragment {
     private SlideshowViewModel slideshowViewModel;
     DBHelperReview dBHelperReview;
     ArrayList<String> review_id, review_title, review_description;
-    //private int count=0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dBHelperReview =new DBHelperReview(getContext());
-        review_id = new ArrayList<>();
-        review_title = new ArrayList<>();
-        review_description = new ArrayList<>();
 
-        storeDataInArrays();
-
-    }
-
-    void storeDataInArrays(){
-        Cursor cursor = dBHelperReview.readAllData();
-        if(cursor.getCount() == 0){
-            Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
-        }else{
-            while (cursor.moveToNext()){
-                review_id.add(cursor.getString(0));
-                review_title.add(cursor.getString(1));
-                review_description.add(cursor.getString(2));
-            }
-        }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,6 +57,13 @@ public class SlideshowFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_slideshow);
 
         Button br = root.findViewById(R.id.button_review);
+
+        dBHelperReview =new DBHelperReview(getContext());
+        review_id = new ArrayList<>();
+        review_title = new ArrayList<>();
+        review_description = new ArrayList<>();
+
+        storeDataInArrays();
 
 
         //Подруб адаптера и списка
@@ -102,6 +90,8 @@ public class SlideshowFragment extends Fragment {
         return root;
     }
 
+
+
     private void showReviewOnWindow() {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
@@ -110,21 +100,15 @@ public class SlideshowFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                SQLiteDatabase database = dBHelperReview.getWritableDatabase();
-                ContentValues contentValues = new ContentValues();
+            DBHelperReview myDB = new DBHelperReview(getContext());
+
 
                 AlertDialog alertDialog = (AlertDialog) dialogInterface;
                 EditText editText1 = alertDialog.findViewById(R.id.reviewTitle);
                 EditText editText2 = alertDialog.findViewById(R.id.reviewDescription);
                 String a1 = editText1.getText().toString();
                 String a2 = editText2.getText().toString();
-                contentValues.put(DBHelperReview.KEY_TITLE, a1);
-                contentValues.put(DBHelperReview.KEY_DESCRIPTION, a2);
-                database.insert(DBHelperReview.TABLE_REVIEW, null, contentValues);
-                dBHelperReview.close();
-//                slideshowViewModel.addItem(count, a1, a2);
-//                count++;
-                showToast();
+                myDB.addReview(a1, a2);
                 alertDialog.dismiss();
 
             }
@@ -143,7 +127,18 @@ public class SlideshowFragment extends Fragment {
         dialog.show();
     }
 
-    public void showToast() {
-        Toast.makeText(getContext(), R.string.toast_review, Toast.LENGTH_SHORT).show();
+    void storeDataInArrays(){
+        Cursor cursor = dBHelperReview.readAllData();
+        if(cursor.getCount() == 0){
+            Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                review_id.add(cursor.getString(0));
+                review_title.add(cursor.getString(1));
+                review_description.add(cursor.getString(2));
+            }
+        }
     }
+
+
 }

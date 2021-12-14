@@ -1,5 +1,6 @@
 package com.example.webfactory.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.webfactory.R;
@@ -45,6 +47,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ReviewPage.class);
+                intent.putExtra("reviewId", String.valueOf(review_id.get(position)));
                 intent.putExtra("reviewTitle", String.valueOf(review_title.get(position)));
                 intent.putExtra("reviewDescription", String.valueOf(review_description.get(position)));
                 context.startActivity(intent);
@@ -60,11 +63,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public static final class CategoryViewHolder extends RecyclerView.ViewHolder {
 
         TextView categoryTitle;
+        ConstraintLayout reviewFragment;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
             categoryTitle = itemView.findViewById(R.id.categoryTitle);
+            reviewFragment = itemView.findViewById(R.id.reviewFragment);
 
         }
     }

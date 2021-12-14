@@ -23,4 +23,5 @@
     <string name="alert_polls_title_str">Заголовок анкеты</string>
     <string name="ask_polls_str">Ваш вопрос</string>
     <string name="send_polls_str">Отправить анкету</string>
+    <string name="btn_str_update_review">Изменить отзыв</string>
 </resources>
