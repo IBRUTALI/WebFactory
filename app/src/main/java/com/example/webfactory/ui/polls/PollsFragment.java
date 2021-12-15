@@ -2,6 +2,8 @@ package com.example.webfactory.ui.polls;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +22,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.webfactory.Databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.adapter.CategoryAdapter;
 import com.example.webfactory.adapter.PollsAdapter;
 import com.example.webfactory.ui.polls.PollsViewModel;
 
+import java.util.ArrayList;
+
 public class PollsFragment extends Fragment {
 
     private PollsViewModel pollsViewModel;
-    private int count=0;
+    DBHelperReview dBHelperReview2;
+    ArrayList<String> polls_id, polls_title, polls_var1, polls_var2, polls_var3;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,11 +43,20 @@ public class PollsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_polls, container, false);
         final TextView textView = root.findViewById(R.id.text_polls);
 
+        dBHelperReview2 =new DBHelperReview(getContext());
+        polls_id = new ArrayList<>();
+        polls_title = new ArrayList<>();
+        polls_var1 = new ArrayList<>();
+        polls_var2 = new ArrayList<>();
+        polls_var3 = new ArrayList<>();
+
+        storeDataInArrays();
+
         //Подруб адаптера и списка
         RecyclerView recyclerView = root.findViewById(R.id.pollsRecycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        PollsAdapter pollsAdapter = new PollsAdapter(getActivity(), pollsViewModel.pollsList);
+        PollsAdapter pollsAdapter = new PollsAdapter(getContext(), polls_id, polls_title, polls_var1, polls_var2, polls_var3);
         recyclerView.setAdapter(pollsAdapter);
 
         Button bp = root.findViewById(R.id.button_polls);
@@ -61,6 +76,21 @@ public class PollsFragment extends Fragment {
         return root;
     }
 
+    void storeDataInArrays() {
+        Cursor cursor = dBHelperReview2.readAllDataP();
+        if(cursor.getCount() == 0){
+            Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                polls_id.add(cursor.getString(0));
+                polls_title.add(cursor.getString(1));
+                polls_var1.add(cursor.getString(2));
+                polls_var2.add(cursor.getString(3));
+                polls_var3.add(cursor.getString(4));
+            }
+        }
+    }
+
     private void showPollsOnWindow() {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
@@ -68,6 +98,8 @@ public class PollsFragment extends Fragment {
         dialog.setPositiveButton("Создать анкету", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                DBHelperReview myDB = new DBHelperReview(getContext());
 
                 AlertDialog alertDialog = (AlertDialog) dialogInterface;
                 EditText editText1 = alertDialog.findViewById(R.id.pollsAlertTitle);
@@ -80,15 +112,12 @@ public class PollsFragment extends Fragment {
                 String a3 = editText3.getText().toString();
                 String a4 = editText4.getText().toString();
 
-                pollsViewModel.addItem(count, a1, a2, a3, a4);
-                count++;
-                showToast();
+                myDB.addPolls(a1, a2, a3, a4);
                 alertDialog.dismiss();
 
             }
 
         });
-
 
         dialog.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
             @Override
@@ -101,8 +130,6 @@ public class PollsFragment extends Fragment {
         dialog.show();
     }
 
-    public void showToast() {
-        Toast.makeText(getContext(), R.string.toast_polls, Toast.LENGTH_SHORT).show();
-    }
+
 
 }

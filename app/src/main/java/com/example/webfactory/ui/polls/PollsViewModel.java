@@ -13,14 +13,7 @@ import java.util.List;
 public class PollsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
-    List<Polls> pollsList= new ArrayList<>();
 
-    public void addItem(int count, String title, String var1, String var2, String var3) {
-        pollsList.add(new Polls(count, title, var1, var2, var3));
-    }
-    public  List<Polls> getPollsList(){
-        return pollsList;
-    }
     public PollsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("Окно анкетирования");
