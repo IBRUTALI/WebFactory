@@ -44,6 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
 
         holder.categoryTitle.setText(String.valueOf(review_title.get(position)));
+        holder.categoryId.setText(String.valueOf(review_id.get(position)));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +66,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public static final class CategoryViewHolder extends RecyclerView.ViewHolder {
 
         TextView categoryTitle;
+        TextView categoryId;
         ConstraintLayout reviewFragment;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
             categoryTitle = itemView.findViewById(R.id.categoryTitle);
+            categoryId = itemView.findViewById(R.id.categoryId);
             reviewFragment = itemView.findViewById(R.id.reviewFragment);
 
         }

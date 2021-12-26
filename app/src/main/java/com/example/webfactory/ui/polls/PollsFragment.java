@@ -77,16 +77,16 @@ public class PollsFragment extends Fragment {
     }
 
     void storeDataInArrays() {
-        Cursor cursor = dBHelperReview2.readAllDataP();
-        if(cursor.getCount() == 0){
+        Cursor cursor1 = dBHelperReview2.readAllDataP();
+        if(cursor1.getCount() == 0){
             Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
         }else{
-            while (cursor.moveToNext()){
-                polls_id.add(cursor.getString(0));
-                polls_title.add(cursor.getString(1));
-                polls_var1.add(cursor.getString(2));
-                polls_var2.add(cursor.getString(3));
-                polls_var3.add(cursor.getString(4));
+            while (cursor1.moveToNext()){
+                polls_id.add(cursor1.getString(0));
+                polls_title.add(cursor1.getString(1));
+                polls_var1.add(cursor1.getString(2));
+                polls_var2.add(cursor1.getString(3));
+                polls_var3.add(cursor1.getString(4));
             }
         }
     }

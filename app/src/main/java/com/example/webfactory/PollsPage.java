@@ -25,7 +25,7 @@ public class PollsPage extends AppCompatActivity {
         getAndSetIntentData();
 
 
-        Button btnDeletePolls = findViewById(R.id.deletePolls);
+        Button btnDeletePolls = findViewById(R.id.sendPolls);
         btnDeletePolls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

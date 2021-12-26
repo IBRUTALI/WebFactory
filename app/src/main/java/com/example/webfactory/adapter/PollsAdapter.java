@@ -45,6 +45,7 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
     public void onBindViewHolder(@NonNull PollsViewHolder holder, int position) {
 
         holder.pollsTitle.setText(String.valueOf(polls_title.get(position)));
+        holder.pollsId.setText(String.valueOf(polls_id.get(position)));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +54,8 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
                 intent.putExtra("pollsId", String.valueOf(polls_id.get(position)));
                 intent.putExtra("pollsTitle", String.valueOf(polls_title.get(position)));
                 intent.putExtra("pollsVar1", String.valueOf(polls_var1.get(position)));
-                intent.putExtra("PollsVar2", String.valueOf(polls_var2.get(position)));
-                intent.putExtra("PollsVar3", String.valueOf(polls_var3.get(position)));
+                intent.putExtra("pollsVar2", String.valueOf(polls_var2.get(position)));
+                intent.putExtra("pollsVar3", String.valueOf(polls_var3.get(position)));
 
                 context.startActivity(intent);
             }
@@ -69,12 +70,14 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
     public static final class PollsViewHolder extends RecyclerView.ViewHolder {
 
         TextView pollsTitle;
+        TextView pollsId;
         ConstraintLayout pollFragment;
 
         public PollsViewHolder(@NonNull View itemView) {
             super(itemView);
 
             pollsTitle = itemView.findViewById(R.id.pollsTitle);
+            pollsId = itemView.findViewById(R.id.pollsId);
             pollFragment = itemView.findViewById(R.id.pollFragment);
 
         }

@@ -14,7 +14,9 @@
         android:layout_marginTop="10dp"
         android:text="@string/app_name"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,9 +28,11 @@
         android:layout_marginTop="40dp"
         android:text="@string/app_name"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:singleLine="false"
+        android:textSize="18sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pollsPageTitle" />
 
@@ -36,12 +40,14 @@
         android:id="@+id/pollsPageVar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:text="@string/app_name"
+        android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:singleLine="false"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pollsPageVar1" />
 
@@ -49,21 +55,35 @@
         android:id="@+id/pollsPageVar3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:text="@string/app_name"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:singleLine="false"
+        android:gravity="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pollsPageVar2" />
 
     <Button
-        android:id="@+id/deletePolls"
-        android:layout_width="wrap_content"
+        android:id="@+id/sendPolls"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:text="@string/send_polls_str"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/deletePolls"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="48dp"
+        android:text="@string/delete_polls_str"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -73,8 +93,9 @@
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toEndOf="@+id/pollsPageVar1"
         app:layout_constraintTop_toBottomOf="@+id/pollsPageTitle" />
 
@@ -82,8 +103,9 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toEndOf="@+id/pollsPageVar2"
         app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
 
@@ -91,8 +113,10 @@
         android:id="@+id/checkBox3"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/pollsPageVar3"
         app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 

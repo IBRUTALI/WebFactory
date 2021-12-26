@@ -15,18 +15,14 @@ public class DBHelperReview extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "reviewDb";
     private static final String TABLE_REVIEW = "reviews";
     private static final String TABLE_POLLS = "polls";
-
     private static final String KEY_ID = "_id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESCRIPTION = "description";
-
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_VAR1 = "var1";
     private static final String COLUMN_VAR2 = "var2";
     private static final String COLUMN_VAR3 = "var3";
-
-
 
     public DBHelperReview(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -66,11 +62,11 @@ public class DBHelperReview extends SQLiteOpenHelper {
     public Cursor readAllDataP(){
         String query = "SELECT * FROM " + TABLE_POLLS;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
+        Cursor cursor1 = null;
         if(db != null){
-            cursor = db.rawQuery(query, null);
+            cursor1 = db.rawQuery(query, null);
         }
-        return cursor;
+        return cursor1;
     }
 
     public void updateData(String row_id, String title, String description){
