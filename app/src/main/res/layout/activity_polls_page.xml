@@ -7,64 +7,169 @@
     android:layout_height="match_parent"
     tools:context="com.example.webfactory.PollsPage">
 
-    <TextView
-        android:id="@+id/pollsPageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:singleLine="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/pollsPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/pollsPageVar1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:singleLine="false"
-        android:textSize="18sp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pollsPageTitle" />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioGroup1"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pollsPageVar1">
 
-    <TextView
-        android:id="@+id/pollsPageVar2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/app_name"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:singleLine="false"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pollsPageVar1" />
+            <RadioButton
+                android:id="@+id/radio_yes1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Да" />
 
-    <TextView
-        android:id="@+id/pollsPageVar3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:singleLine="false"
-        android:gravity="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pollsPageVar2" />
+            <RadioButton
+                android:id="@+id/radio_semiYes1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Скорее да, чем нет" />
+
+            <RadioButton
+                android:id="@+id/radio_semiNo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Скорее нет, чем да" />
+
+            <RadioButton
+                android:id="@+id/radio_no1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Нет" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/pollsPageVar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pollsPageTitle" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioGroup2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pollsPageVar2">
+
+            <RadioButton
+                android:id="@+id/radio_yes2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Да" />
+
+            <RadioButton
+                android:id="@+id/radio_semiYes2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Скорее да, чем нет" />
+
+            <RadioButton
+                android:id="@+id/radio_semiNo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Скорее нет, чем да" />
+
+            <RadioButton
+                android:id="@+id/radio_no2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Нет" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/pollsPageVar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="216dp"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pollsPageVar1" />
+
+        <TextView
+            android:id="@+id/pollsPageVar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="212dp"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pollsPageVar2" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioGroup3"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pollsPageVar3">
+
+            <RadioButton
+                android:id="@+id/radio_yes3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Да" />
+
+            <RadioButton
+                android:id="@+id/radio_semiYes3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Скорее да, чем нет" />
+
+            <RadioButton
+                android:id="@+id/radio_semiNo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Скорее нет, чем да" />
+
+            <RadioButton
+                android:id="@+id/radio_no3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Нет" />
+
+        </RadioGroup>
 
     <Button
         android:id="@+id/sendPolls"
@@ -88,36 +193,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toEndOf="@+id/pollsPageVar1"
-        app:layout_constraintTop_toBottomOf="@+id/pollsPageTitle" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toEndOf="@+id/pollsPageVar2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
-
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/pollsPageVar3"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

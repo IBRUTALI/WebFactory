@@ -1,4 +1,4 @@
-package com.example.webfactory.ui.slideshow;
+ package com.example.webfactory.ui.slideshow;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
