@@ -12,25 +12,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.webfactory.R;
+import com.example.webfactory.databinding.ActivityPollsPageBinding;
 
 public class PollsPage extends AppCompatActivity {
-    TextView pollsTitle, pollsVar1, pollsVar2, pollsVar3;
+    ActivityPollsPageBinding binding;
     String id, title, var1, var2, var3;
-    Button btnDeletePolls, btnSendPolls;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_polls_page);
-
-        pollsTitle = findViewById(R.id.pollsPageTitle);
-        pollsVar1 = findViewById(R.id.pollsPageVar1);
-        pollsVar2 = findViewById(R.id.pollsPageVar2);
-        pollsVar3 = findViewById(R.id.pollsPageVar3);
-
+        binding = ActivityPollsPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         getAndSetIntentData();
-
     }
 
 
@@ -47,16 +41,20 @@ public class PollsPage extends AppCompatActivity {
             var3 = getIntent().getStringExtra("pollsVar3");
 
             //Установка интента
-            pollsTitle.setText(title);
-            pollsVar1.setText(var1);
-            pollsVar2.setText(var2);
-            pollsVar3.setText(var3);
+            binding.pollsPageTitle.setText(title);
+            binding.pollsPageVar1.setText(var1);
+            binding.pollsPageVar2.setText(var2);
+            binding.pollsPageVar3.setText(var3);
         }else{
             Toast.makeText(this, "Нет данных", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private  void sendPolls(){
+        // TODO: 01.03.2022 Возможность отправки результатов анкетирования с сохранением в БД 
+    }
+    
     private void deletePolls() {
-
+        // TODO: 01.03.2022 Возможность удаление анкеты 
     }
 }

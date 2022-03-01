@@ -26,22 +26,24 @@ import com.example.webfactory.Databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.adapter.CategoryAdapter;
 import com.example.webfactory.adapter.PollsAdapter;
+import com.example.webfactory.databinding.FragmentPollsBinding;
 import com.example.webfactory.ui.polls.PollsViewModel;
 
 import java.util.ArrayList;
 
 public class PollsFragment extends Fragment {
-
+    private FragmentPollsBinding binding;
     private PollsViewModel pollsViewModel;
-    DBHelperReview dBHelperReview2;
-    ArrayList<String> polls_id, polls_title, polls_var1, polls_var2, polls_var3;
+    private DBHelperReview dBHelperReview2;
+    private ArrayList<String> polls_id, polls_title, polls_var1, polls_var2, polls_var3; // TODO: 01.03.2022  добавить возможность выбора количества вопросов при создании анкеты
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         pollsViewModel =
                 new ViewModelProvider(this).get(PollsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_polls, container, false);
-        final TextView textView = root.findViewById(R.id.text_polls);
+        binding = FragmentPollsBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
 
         dBHelperReview2 =new DBHelperReview(getContext());
         polls_id = new ArrayList<>();
@@ -53,23 +55,16 @@ public class PollsFragment extends Fragment {
         storeDataInArrays();
 
         //Подруб адаптера и списка
-        RecyclerView recyclerView = root.findViewById(R.id.pollsRecycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.pollsRecycler.setLayoutManager(layoutManager);
         PollsAdapter pollsAdapter = new PollsAdapter(getContext(), polls_id, polls_title, polls_var1, polls_var2, polls_var3);
-        recyclerView.setAdapter(pollsAdapter);
+        binding.pollsRecycler.setAdapter(pollsAdapter);
 
-        Button bp = root.findViewById(R.id.button_polls);
-        bp.setOnClickListener(new View.OnClickListener() {
+
+        binding.buttonPolls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPollsOnWindow();
-            }
-        });
-        pollsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
             }
         });
 
@@ -130,6 +125,10 @@ public class PollsFragment extends Fragment {
         dialog.show();
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 
 }

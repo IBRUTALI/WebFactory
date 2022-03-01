@@ -1,11 +1,9 @@
  package com.example.webfactory.ui.slideshow;
 
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,19 +25,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.webfactory.Databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.adapter.CategoryAdapter;
-import com.example.webfactory.model.Category;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
-public class SlideshowFragment extends Fragment {
+ public class ReviewFragment extends Fragment {
 
 
-    private SlideshowViewModel slideshowViewModel;
+    private ReviewViewModel reviewViewModel;
     DBHelperReview dBHelperReview;
     ArrayList<String> review_id, review_title, review_description;
 
@@ -51,9 +43,9 @@ public class SlideshowFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        reviewViewModel =
+                new ViewModelProvider(this).get(ReviewViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_review, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
 
         Button br = root.findViewById(R.id.button_review);
@@ -81,7 +73,7 @@ public class SlideshowFragment extends Fragment {
         });
 
 
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        reviewViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

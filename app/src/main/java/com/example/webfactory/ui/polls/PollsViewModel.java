@@ -12,14 +12,8 @@ import java.util.List;
 
 public class PollsViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
-
     public PollsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Окно анкетирования");
+
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
 }

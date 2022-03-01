@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/nav_forum"
-        android:name="com.example.webfactory.ui.slideshow.SlideshowFragment"
+        android:name="com.example.webfactory.ui.slideshow.ReviewFragment"
         android:label="@string/menu_review"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_review" />
 
     <fragment
         android:id="@+id/nav_polls"
