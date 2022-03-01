@@ -1,4 +1,4 @@
-package com.example.webfactory;
+package com.example.webfactory.ui.polls;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.webfactory.R;
 
 public class PollsPage extends AppCompatActivity {
     TextView pollsTitle, pollsVar1, pollsVar2, pollsVar3;

@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WebFactory">
-        <activity android:name=".ReviewPage"></activity>
-        <activity android:name=".PollsPage"></activity>
+        <activity android:name=".ui.slideshow.ReviewPage"></activity>
+        <activity android:name=".ui.polls.PollsPage"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

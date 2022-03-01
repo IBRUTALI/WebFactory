@@ -1,6 +1,5 @@
 package com.example.webfactory.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,12 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.webfactory.PollsPage;
+import com.example.webfactory.ui.polls.PollsPage;
 import com.example.webfactory.R;
-import com.example.webfactory.model.Polls;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHolder> {
 

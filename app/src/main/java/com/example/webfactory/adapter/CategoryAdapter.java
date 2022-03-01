@@ -13,11 +13,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.webfactory.R;
-import com.example.webfactory.ReviewPage;
-import com.example.webfactory.model.Category;
+import com.example.webfactory.ui.slideshow.ReviewPage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
