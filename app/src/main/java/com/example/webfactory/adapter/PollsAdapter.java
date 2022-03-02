@@ -53,7 +53,6 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
                 intent.putExtra("pollsVar1", String.valueOf(polls_var1.get(position)));
                 intent.putExtra("pollsVar2", String.valueOf(polls_var2.get(position)));
                 intent.putExtra("pollsVar3", String.valueOf(polls_var3.get(position)));
-
                 context.startActivity(intent);
             }
         });

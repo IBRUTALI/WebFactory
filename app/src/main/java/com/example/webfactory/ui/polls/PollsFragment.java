@@ -37,6 +37,10 @@ public class PollsFragment extends Fragment {
     private DBHelperReview dBHelperReview2;
     private ArrayList<String> polls_id, polls_title, polls_var1, polls_var2, polls_var3; // TODO: 01.03.2022  добавить возможность выбора количества вопросов при создании анкеты
 
+    public PollsFragment() {
+        super(R.layout.fragment_polls);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         pollsViewModel =
@@ -59,7 +63,6 @@ public class PollsFragment extends Fragment {
         binding.pollsRecycler.setLayoutManager(layoutManager);
         PollsAdapter pollsAdapter = new PollsAdapter(getContext(), polls_id, polls_title, polls_var1, polls_var2, polls_var3);
         binding.pollsRecycler.setAdapter(pollsAdapter);
-
 
         binding.buttonPolls.setOnClickListener(new View.OnClickListener() {
             @Override
