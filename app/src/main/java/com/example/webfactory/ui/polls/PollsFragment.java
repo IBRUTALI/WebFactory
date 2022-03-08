@@ -128,6 +128,8 @@ public class PollsFragment extends Fragment {
         dialog.show();
     }
 
+    private void init(){}
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
