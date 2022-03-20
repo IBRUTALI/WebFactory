@@ -13,7 +13,8 @@ public interface ApiInterface {
     @GET("top-headlines")
     Call<mainNews> getNews(
             @Query("country") String country,
-            @Query("pageSize") int pagesize,
+            @Query("category") String category,
+            @Query("pageSize") int pageSize,
             @Query("apiKey") String apiKey
     );
 }

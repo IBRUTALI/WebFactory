@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "769514695876",
+    "project_id": "webfactory-f0f62",
+    "storage_bucket": "webfactory-f0f62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769514695876:android:e69c0b96ceef735914ad91",
+        "android_client_info": {
+          "package_name": "com.example.webfactory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769514695876-9ahlfa7nhji2ufv6nkj5rkineliamu6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlMBHfBLlNMHpPmM7IheqZZsBVLyBvxYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769514695876-9ahlfa7nhji2ufv6nkj5rkineliamu6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

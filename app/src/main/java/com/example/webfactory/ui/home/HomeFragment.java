@@ -26,10 +26,11 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
-    String api = "43e5c4127f0f4a93b87bf1d6cebfc6e7";
-    ArrayList<News> newsArrayList;
-    NewsAdapter adapter;
-    String country = "ru";
+    private String api = "43e5c4127f0f4a93b87bf1d6cebfc6e7";
+    private ArrayList<News> newsArrayList;
+    private NewsAdapter adapter;
+    private String country = "ru";
+    private String category = "business";
 
     public HomeFragment() {
         super(R.layout.fragment_home);
@@ -53,7 +54,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void findNews() {
-        ApiUtilities.getApiInterface().getNews(country, 20, api).enqueue(new Callback<mainNews>() {
+        ApiUtilities.getApiInterface().getNews(country, category, 20, api).enqueue(new Callback<mainNews>() {
             @Override
             public void onResponse(Call<mainNews> call, Response<mainNews> response) {
                 if(response.isSuccessful()){
