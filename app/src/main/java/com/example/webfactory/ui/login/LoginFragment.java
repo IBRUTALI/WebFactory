@@ -67,7 +67,7 @@ public class LoginFragment extends Fragment {
         if (user != null) {
 //            Intent intent = new Intent(getContext(), MainActivity.class);
 //            startActivity(intent);
-            //navController.navigate(R.id.action_loginFragment_to_nav_home);
+            navController.navigate(R.id.action_loginFragment_to_nav_home);
         }
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {

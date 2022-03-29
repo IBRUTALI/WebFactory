@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.UsualDay" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TextAppearance.SelectedDay" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>

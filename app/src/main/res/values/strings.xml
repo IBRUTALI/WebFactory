@@ -9,7 +9,7 @@
     <string name="action_exit" translatable="false">Выход</string>
 
     <string name="menu_home" translatable="false">Главная</string>
-    <string name="menu_calendar" translatable="false">Календарь выходных</string>
+    <string name="menu_calendar" translatable="false">График работы</string>
     <string name="menu_review" translatable="false">Отзывы</string>
     <string name="menu_polls" translatable="false">Анкетирование</string>
     <string name="button_review">Отзыв</string>
