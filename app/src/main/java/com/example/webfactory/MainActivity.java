@@ -11,6 +11,7 @@ import com.example.webfactory.adapter.CategoryAdapter;
 import com.example.webfactory.model.Category;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -29,6 +30,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private NavController navController;
 
 
     @Override
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_calendar, R.id.nav_forum, R.id.nav_polls)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
@@ -63,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_exit:
-                finish();
+                FirebaseAuth.getInstance().signOut();
+                navController.popBackStack();
         }
         return super.onOptionsItemSelected(item);
     }
