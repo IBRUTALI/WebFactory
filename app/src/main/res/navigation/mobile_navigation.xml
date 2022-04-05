@@ -32,15 +32,15 @@
             android:id="@+id/action_nav_polls_to_pollsPage2"
             app:destination="@id/pollsPage2" />
     </fragment>
-    <activity
+    <fragment
         android:id="@+id/pollsPage2"
-        android:name="com.example.webfactory.ui.polls.PollsPage"
-        android:label="activity_polls_page"
-        tools:layout="@layout/activity_polls_page" />
+        android:name="com.example.webfactory.ui.polls.PollsPageFragment"
+        android:label="Анкета"
+        tools:layout="@layout/fragment_polls_page" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.webfactory.ui.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="Авторизация"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_nav_home"

@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 public class PollsFragment extends Fragment {
     private FragmentPollsBinding binding;
-    private PollsViewModel pollsViewModel;
     private DBHelperReview dBHelperReview2;
     private ArrayList<String> polls_id, polls_title, polls_var1, polls_var2, polls_var3; // TODO: 01.03.2022  добавить возможность выбора количества вопросов при создании анкеты
 
@@ -43,8 +42,6 @@ public class PollsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        pollsViewModel =
-                new ViewModelProvider(this).get(PollsViewModel.class);
         binding = FragmentPollsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 

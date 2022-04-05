@@ -11,7 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WebFactory">
         <activity android:name=".ui.slideshow.ReviewPage"></activity>
-        <activity android:name=".ui.polls.PollsPage"></activity>
         <activity android:name=".ui.home.WebView"></activity>
         <activity
             android:name=".MainActivity"

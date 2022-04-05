@@ -2,6 +2,7 @@ package com.example.webfactory.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.webfactory.ui.polls.PollsPage;
+import com.example.webfactory.ui.polls.PollsPageFragment;
 import com.example.webfactory.R;
 
 import java.util.ArrayList;
 
 public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHolder> {
 
-    Context context;
-    ArrayList polls_id, polls_title, polls_var1, polls_var2, polls_var3;
+    private Context context;
+    private ArrayList polls_id, polls_title, polls_var1, polls_var2, polls_var3;
+    private NavController navController;
 
     public PollsAdapter(Context context, ArrayList polls_id, ArrayList polls_title,
                         ArrayList polls_var1, ArrayList polls_var2, ArrayList polls_var3) {
@@ -40,20 +44,21 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull PollsViewHolder holder, int position) {
-
+        position = holder.getAdapterPosition();
         holder.pollsTitle.setText(String.valueOf(polls_title.get(position)));
         holder.pollsId.setText(String.valueOf(polls_id.get(position)));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, PollsPage.class);
-                intent.putExtra("pollsId", String.valueOf(polls_id.get(position)));
-                intent.putExtra("pollsTitle", String.valueOf(polls_title.get(position)));
-                intent.putExtra("pollsVar1", String.valueOf(polls_var1.get(position)));
-                intent.putExtra("pollsVar2", String.valueOf(polls_var2.get(position)));
-                intent.putExtra("pollsVar3", String.valueOf(polls_var3.get(position)));
-                context.startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("pollsId", String.valueOf(polls_id.get(holder.getAdapterPosition())));
+                bundle.putString("pollsTitle", String.valueOf(polls_title.get(holder.getAdapterPosition())));
+                bundle.putString("pollsVar1", String.valueOf(polls_var1.get(holder.getAdapterPosition())));
+                bundle.putString("pollsVar2", String.valueOf(polls_var2.get(holder.getAdapterPosition())));
+                bundle.putString("pollsVar3", String.valueOf(polls_var3.get(holder.getAdapterPosition())));
+                navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_nav_polls_to_pollsPage2, bundle);
             }
         });
     }
@@ -71,7 +76,6 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
 
         public PollsViewHolder(@NonNull View itemView) {
             super(itemView);
-
             pollsTitle = itemView.findViewById(R.id.pollsTitle);
             pollsId = itemView.findViewById(R.id.pollsId);
             pollFragment = itemView.findViewById(R.id.pollFragment);
