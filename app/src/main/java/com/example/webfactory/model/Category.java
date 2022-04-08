@@ -2,21 +2,23 @@ package com.example.webfactory.model;
 
 public class Category {
 
-    int id;
+    String id;
     String title;
     String description;
+    String category;
 
-    public Category(int id, String title, String description) {
+    public Category(String id, String title, String description, String category) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.category = category;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,5 +36,13 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

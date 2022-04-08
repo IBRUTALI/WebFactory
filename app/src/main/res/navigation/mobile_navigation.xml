@@ -21,7 +21,11 @@
         android:id="@+id/nav_forum"
         android:name="com.example.webfactory.ui.slideshow.ReviewFragment"
         android:label="@string/menu_review"
-        tools:layout="@layout/fragment_review" />
+        tools:layout="@layout/fragment_review" >
+        <action
+            android:id="@+id/action_nav_forum_to_reviewPageFragment"
+            app:destination="@id/reviewPageFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_polls"
@@ -46,5 +50,10 @@
             android:id="@+id/action_loginFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+    <fragment
+        android:id="@+id/reviewPageFragment"
+        android:name="com.example.webfactory.ui.slideshow.ReviewPageFragment"
+        android:label="Отзыв"
+        tools:layout="@layout/fragment_review_page" />
 
 </navigation>

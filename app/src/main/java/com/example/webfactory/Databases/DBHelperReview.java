@@ -18,6 +18,7 @@ public class DBHelperReview extends SQLiteOpenHelper {
     private static final String KEY_ID = "_id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_CATEGORY = "category";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_VAR1 = "var1";
@@ -32,21 +33,18 @@ public class DBHelperReview extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_REVIEW + " (" + KEY_ID
-                + " integer primary key autoincrement, " + KEY_TITLE + " text, " + KEY_DESCRIPTION + " text" + ");");
+                + " integer primary key autoincrement, " + KEY_TITLE + " text, " + KEY_DESCRIPTION + " text, " +  KEY_CATEGORY + " text" + ");");
 
         db.execSQL("create table " + TABLE_POLLS + " (" + COLUMN_ID
                 + " integer primary key autoincrement, " + COLUMN_TITLE + " text, "
                 + COLUMN_VAR1 + " text, " + COLUMN_VAR2 + " text, " + COLUMN_VAR3 + " text" + ");");
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists " + TABLE_REVIEW);
         db.execSQL("drop table if exists " + TABLE_POLLS);
-
         onCreate(db);
-
     }
 
     public Cursor readAllData(){
@@ -84,13 +82,14 @@ public class DBHelperReview extends SQLiteOpenHelper {
 
     }
 
-    public void addReview(String title, String description){
+    public void addReview(String title, String description, String category){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(KEY_TITLE, title);
         cv.put(KEY_DESCRIPTION, description);
+        cv.put(KEY_CATEGORY, category);
         long result = db.insert(DBHelperReview.TABLE_REVIEW, null, cv);
         if(result == -1){
             Toast.makeText(context, "Не получилось!", Toast.LENGTH_SHORT).show();

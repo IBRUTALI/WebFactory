@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WebFactory">
-        <activity android:name=".ui.slideshow.ReviewPage"></activity>
+        <activity android:name=".ui.slideshow.ReviewPageFragment"></activity>
         <activity android:name=".ui.home.WebView"></activity>
         <activity
             android:name=".MainActivity"
