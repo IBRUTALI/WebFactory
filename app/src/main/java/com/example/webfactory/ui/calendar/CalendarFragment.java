@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.applandeo.materialcalendarview.EventDay;
@@ -35,7 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 
 public class CalendarFragment extends Fragment {
@@ -63,6 +61,21 @@ public class CalendarFragment extends Fragment {
 
         mEventDays = new ArrayList<>();
 
+        binding.addSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSchedule();
+            }
+        });
+
+        binding.addSchedule.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                deleteSchedule();
+                return true;
+            }
+        });
+
         myRef.child(user.getUid()).child("calendar").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,7 +92,7 @@ public class CalendarFragment extends Fragment {
                         Date date = format.parse(name.getDate());
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(date);
-                        mEventDays.add(new EventDay(calendar, R.drawable.ic_menu_camera));
+                        mEventDays.add(new EventDay(calendar, android.R.drawable.presence_online));
                         binding.calendarView.setEvents(mEventDays);
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -104,21 +117,109 @@ public class CalendarFragment extends Fragment {
         return root;
     }
 
+    private void addSchedule() {
+        String[] scheduleList = {"2/2", "5/2"};
+        String[] selectedSchedule = new String[1];
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
+        alertDialog.setTitle("Выберете график работы");
+        alertDialog.setSingleChoiceItems(scheduleList, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedSchedule[0] = scheduleList[which];
+            }
+        });
+        alertDialog.setPositiveButton("Выбрать", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Calendar cal = Calendar.getInstance();
+                CalendarUser calendarUser = new CalendarUser();
+                int i = Calendar.getInstance().get(Calendar.MONTH);
+                if (selectedSchedule[0].equals(scheduleList[0])) {
+                    for (cal.get(Calendar.DAY_OF_MONTH); cal.get(Calendar.DAY_OF_MONTH) <= Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH); cal.add(Calendar.DAY_OF_MONTH, 3)) {
+                        if (i < cal.get(Calendar.MONTH)) {
+                            return;
+                        } else {
+                            calendarUser.setDate(cal.getTime().toString());
+                            myRef.child(user.getUid()).child("calendar").push().setValue(calendarUser);
+                            cal.add(Calendar.DAY_OF_MONTH, 1);
+                            calendarUser.setDate(cal.getTime().toString());
+                            myRef.child(user.getUid()).child("calendar").push().setValue(calendarUser);
+                        }
+                    }
+                    Toast.makeText(getContext(), "Выбран график работы 2/2", Toast.LENGTH_SHORT).show();
+                } else {
+                    for (cal.get(Calendar.DAY_OF_MONTH); cal.get(Calendar.DAY_OF_MONTH) <= Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH); cal.add(Calendar.DAY_OF_MONTH, 1)) {
+                        if (cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                            if (i < cal.get(Calendar.MONTH)) {
+                                return;
+                            } else {
+                                calendarUser.setDate(cal.getTime().toString());
+                                myRef.child(user.getUid()).child("calendar").push().setValue(calendarUser);
+                            }
+                        }
+                    }
+                    Toast.makeText(getContext(), "Выбран график работы 5/2", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        alertDialog.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void deleteSchedule() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
+        alertDialog.setTitle("Внимание");
+        alertDialog.setMessage("Вы действительно хотите удалить рабочий график?");
+        alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("calendar");
+                dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().removeValue();
+                        mEventDays = new ArrayList<>();
+                        binding.calendarView.setEvents(mEventDays);
+                        Toast.makeText(getContext(), "График удален!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+        alertDialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        alertDialog.show();
+    }
 
     private void addWorkerOnDate(EventDay eventDay) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
-        alertDialog.setPositiveButton("Добавить сотрудников", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Добавить рабочий день", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Calendar clickedDayCalendar = eventDay.getCalendar();
                 CalendarUser calendarUser = new CalendarUser();
                 calendarUser.setDate(clickedDayCalendar.getTime().toString());
                 myRef.child(user.getUid()).child("calendar").push().setValue(calendarUser);
-                Toast.makeText(getContext(), "Сотрудники добавлены", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Добавить рабочий день", Toast.LENGTH_SHORT).show();
             }
         });
 
-        alertDialog.setNegativeButton("Удалить сотрудников", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Удалить рабочий день", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Calendar clickedDayCalendar = eventDay.getCalendar();
@@ -133,8 +234,6 @@ public class CalendarFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        ConstraintLayout cl1 = (ConstraintLayout) getLayoutInflater().inflate(R.layout.alert_calendar, null);
-        alertDialog.setView(cl1);
         alertDialog.show();
 
     }
@@ -150,7 +249,7 @@ public class CalendarFragment extends Fragment {
                         dataSnapshot.getRef().removeValue();
                         mEventDays = new ArrayList<>();
                         binding.calendarView.setEvents(mEventDays);
-                        Toast.makeText(getContext(), "Сотрудники удалены", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Удалить рабочий день", Toast.LENGTH_SHORT).show();
                     }
 
                 }

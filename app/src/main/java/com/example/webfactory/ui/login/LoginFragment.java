@@ -33,9 +33,7 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private NavController navController;
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
+    public LoginFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,8 +63,6 @@ public class LoginFragment extends Fragment {
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-//            Intent intent = new Intent(getContext(), MainActivity.class);
-//            startActivity(intent);
             navController.navigate(R.id.action_loginFragment_to_nav_home);
         }
 
@@ -75,7 +71,6 @@ public class LoginFragment extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    //navController.navigate(R.id.action_loginFragment_to_nav_home);
                 } else {
 
                 }
