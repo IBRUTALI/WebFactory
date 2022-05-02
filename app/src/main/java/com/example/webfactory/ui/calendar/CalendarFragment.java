@@ -24,7 +24,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
@@ -64,17 +63,10 @@ public class CalendarFragment extends Fragment {
         binding.addSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSchedule();
+                deleteSchedule();
             }
         });
 
-        binding.addSchedule.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                deleteSchedule();
-                return true;
-            }
-        });
 
         myRef.child(user.getUid()).child("calendar").addValueEventListener(new ValueEventListener() {
             @Override
@@ -110,16 +102,17 @@ public class CalendarFragment extends Fragment {
         binding.calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
-                addWorkerOnDate(eventDay);
+                addSchedule(eventDay);
             }
         });
 
         return root;
     }
 
-    private void addSchedule() {
+    private void addSchedule(EventDay eventDay) {
         String[] scheduleList = {"2/2", "5/2"};
         String[] selectedSchedule = new String[1];
+        Calendar cal = eventDay.getCalendar();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
         alertDialog.setTitle("Выберете график работы");
         alertDialog.setSingleChoiceItems(scheduleList, -1, new DialogInterface.OnClickListener() {
@@ -131,9 +124,8 @@ public class CalendarFragment extends Fragment {
         alertDialog.setPositiveButton("Выбрать", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Calendar cal = Calendar.getInstance();
                 CalendarUser calendarUser = new CalendarUser();
-                int i = Calendar.getInstance().get(Calendar.MONTH);
+                int i = cal.get(Calendar.MONTH);
                 if (selectedSchedule[0].equals(scheduleList[0])) {
                     for (cal.get(Calendar.DAY_OF_MONTH); cal.get(Calendar.DAY_OF_MONTH) <= Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH); cal.add(Calendar.DAY_OF_MONTH, 3)) {
                         if (i < cal.get(Calendar.MONTH)) {
@@ -204,62 +196,6 @@ public class CalendarFragment extends Fragment {
         });
 
         alertDialog.show();
-    }
-
-    private void addWorkerOnDate(EventDay eventDay) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
-        alertDialog.setPositiveButton("Добавить рабочий день", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Calendar clickedDayCalendar = eventDay.getCalendar();
-                CalendarUser calendarUser = new CalendarUser();
-                calendarUser.setDate(clickedDayCalendar.getTime().toString());
-                myRef.child(user.getUid()).child("calendar").push().setValue(calendarUser);
-                Toast.makeText(getContext(), "Добавить рабочий день", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        alertDialog.setNegativeButton("Удалить рабочий день", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Calendar clickedDayCalendar = eventDay.getCalendar();
-                CalendarUser calendarUser = new CalendarUser();
-                calendarUser.setDate(clickedDayCalendar.getTime().toString());
-                delete(calendarUser, clickedDayCalendar);
-            }
-        });
-
-        alertDialog.setNeutralButton("Отмена", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alertDialog.show();
-
-    }
-
-    private void delete(CalendarUser calendarUser, Calendar clickedDayCalendar) {
-        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("calendar");
-        for (int i = 0; i < calendarUserKeys.size(); i++) {
-            Query query = dbref.child(calendarUserKeys.get(i));
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child("date").getValue(String.class).equals(calendarUser.getDate())) {
-                        dataSnapshot.getRef().removeValue();
-                        mEventDays = new ArrayList<>();
-                        binding.calendarView.setEvents(mEventDays);
-                        Toast.makeText(getContext(), "Удалить рабочий день", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
 
 

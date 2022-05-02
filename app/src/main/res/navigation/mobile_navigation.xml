@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_nav_polls_to_pollsPage2"
             app:destination="@id/pollsPage2" />
+        <action
+            android:id="@+id/action_nav_polls_to_pollsDiagramFragment"
+            app:destination="@id/pollsDiagramFragment" />
     </fragment>
     <fragment
         android:id="@+id/pollsPage2"
@@ -55,5 +58,10 @@
         android:name="com.example.webfactory.ui.slideshow.ReviewPageFragment"
         android:label="Отзыв"
         tools:layout="@layout/fragment_review_page" />
+    <fragment
+        android:id="@+id/pollsDiagramFragment"
+        android:name="com.example.webfactory.ui.polls.PollsDiagramFragment"
+        android:label="Статистика"
+        tools:layout="@layout/fragment_polls_diagram"/>
 
 </navigation>

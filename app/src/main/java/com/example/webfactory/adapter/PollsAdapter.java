@@ -1,22 +1,18 @@
 package com.example.webfactory.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.webfactory.ui.polls.PollsPageFragment;
 import com.example.webfactory.R;
-
 import java.util.ArrayList;
 
 public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHolder> {
@@ -47,6 +43,13 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
         position = holder.getAdapterPosition();
         holder.pollsTitle.setText(String.valueOf(polls_title.get(position)));
         holder.pollsId.setText(String.valueOf(polls_id.get(position)));
+        holder.pollsImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_nav_polls_to_pollsDiagramFragment);
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,14 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
                 navController.navigate(R.id.action_nav_polls_to_pollsPage2, bundle);
             }
         });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                // TODO Удалить анкету
+                return true;
+            }
+        });
     }
 
     @Override
@@ -72,12 +83,14 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
 
         TextView pollsTitle;
         TextView pollsId;
+        ImageView pollsImage;
         ConstraintLayout pollFragment;
 
         public PollsViewHolder(@NonNull View itemView) {
             super(itemView);
             pollsTitle = itemView.findViewById(R.id.pollsTitle);
             pollsId = itemView.findViewById(R.id.pollsId);
+            pollsImage = itemView.findViewById(R.id.showDiagram);
             pollFragment = itemView.findViewById(R.id.pollFragment);
 
         }
