@@ -79,7 +79,7 @@ public class PollsFragment extends Fragment {
         return root;
     }
 
-    void storeDataInArrays() {
+    private void storeDataInArrays() {
         Cursor cursor1 = dBHelperReview1.readAllData();
         Cursor cursor2 = dBHelperReview2.readAllDataP();
         if (cursor2.getCount() == 0) {
@@ -93,7 +93,6 @@ public class PollsFragment extends Fragment {
                 polls_var3.add(cursor2.getString(4));
             }
             if (cursor1.getCount() == 0) {
-                Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
             } else {
                 while (cursor1.moveToNext()) {
                     categoryList.add(cursor1.getString(3));

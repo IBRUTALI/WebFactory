@@ -46,8 +46,10 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
         holder.pollsImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("pollsTitle", String.valueOf(polls_title.get(holder.getAdapterPosition())));
                 navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_nav_polls_to_pollsDiagramFragment);
+                navController.navigate(R.id.action_nav_polls_to_pollsDiagramFragment, bundle);
             }
         });
 
@@ -68,7 +70,6 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.PollsViewHol
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                // TODO Удалить анкету
                 return true;
             }
         });

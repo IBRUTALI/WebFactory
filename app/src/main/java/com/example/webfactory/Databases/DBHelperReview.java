@@ -11,19 +11,31 @@ public class DBHelperReview extends SQLiteOpenHelper {
 
     private Context context;
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "reviewDb";
     private static final String TABLE_REVIEW = "reviews";
     private static final String TABLE_POLLS = "polls";
+    private static final String TABLE_POLLS_ANSWERS = "answers";
+
     private static final String KEY_ID = "_id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_CATEGORY = "category";
+
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_VAR1 = "var1";
     private static final String COLUMN_VAR2 = "var2";
     private static final String COLUMN_VAR3 = "var3";
+
+    private static final String ANSWERS_ID = "_id";
+    private static final String ANSWERS_TITLE = "title";
+    private static final String ANSWERS_VAR1 = "var1";
+    private static final String ANSWERS_ANS1 = "ans1";
+    private static final String ANSWERS_VAR2 = "var2";
+    private static final String ANSWERS_ANS2 = "ans2";
+    private static final String ANSWERS_VAR3 = "var3";
+    private static final String ANSWERS_ANS3 = "ans3";
 
     public DBHelperReview(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,12 +50,18 @@ public class DBHelperReview extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_POLLS + " (" + COLUMN_ID
                 + " integer primary key autoincrement, " + COLUMN_TITLE + " text, "
                 + COLUMN_VAR1 + " text, " + COLUMN_VAR2 + " text, " + COLUMN_VAR3 + " text" + ");");
+
+        db.execSQL("create table " + TABLE_POLLS_ANSWERS + " (" + ANSWERS_ID
+                + " integer primary key autoincrement, " + ANSWERS_TITLE + " text, "
+                + ANSWERS_VAR1 + " text, " + ANSWERS_ANS1 + " text, " + ANSWERS_VAR2 + " text, "
+                + ANSWERS_ANS2 + " text, " + ANSWERS_VAR3 + " text, " + ANSWERS_ANS3 + " text" + ");");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists " + TABLE_REVIEW);
         db.execSQL("drop table if exists " + TABLE_POLLS);
+        db.execSQL("drop table if exists " + TABLE_POLLS_ANSWERS);
         onCreate(db);
     }
 
@@ -59,6 +77,16 @@ public class DBHelperReview extends SQLiteOpenHelper {
 
     public Cursor readAllDataP(){
         String query = "SELECT * FROM " + TABLE_POLLS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor1 = null;
+        if(db != null){
+            cursor1 = db.rawQuery(query, null);
+        }
+        return cursor1;
+    }
+
+    public Cursor readAllDataPA(){
+        String query = "SELECT * FROM " + TABLE_POLLS_ANSWERS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor1 = null;
         if(db != null){
@@ -114,5 +142,25 @@ public class DBHelperReview extends SQLiteOpenHelper {
             Toast.makeText(context, "Получилось!", Toast.LENGTH_SHORT).show();
         }
 }
+
+    public void addPollsAnswer(String title, String var1, String ans1, String var2, String ans2, String var3, String ans3){
+
+        SQLiteDatabase db2 = this.getWritableDatabase();
+        ContentValues cv2 = new ContentValues();
+
+        cv2.put(ANSWERS_TITLE, title);
+        cv2.put(ANSWERS_VAR1, var1);
+        cv2.put(ANSWERS_ANS1, ans1);
+        cv2.put(ANSWERS_VAR2, var2);
+        cv2.put(ANSWERS_ANS2, ans2);
+        cv2.put(ANSWERS_VAR3, var3);
+        cv2.put(ANSWERS_ANS3, ans3);
+        long result2 = db2.insert(DBHelperReview.TABLE_POLLS_ANSWERS, null, cv2);
+        if(result2 == -1){
+            Toast.makeText(context, "Не получилось!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Анкета отправлена!", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
 

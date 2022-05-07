@@ -1,10 +1,18 @@
 package com.example.webfactory.ui.polls;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.webfactory.Databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.databinding.FragmentPollsPageBinding;
 
@@ -23,6 +32,7 @@ public class PollsPageFragment extends Fragment {
     private ArrayList<String> varList;
     private String id, title, var1, var2, var3;
     private NavController navController;
+    private String[] checkList = new String[3];
 
 
     public PollsPageFragment() {
@@ -65,7 +75,31 @@ public class PollsPageFragment extends Fragment {
             varList.add(var1);
             varList.add(var2);
             varList.add(var3);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.polls_list_item, R.id.pollsPageTVItem, varList);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.polls_list_item, R.id.pollsPageTVItem, varList) {
+                int selectedPosition = 0;
+
+                @NonNull
+                @Override
+                public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                    View v = convertView;
+                    if (v == null) {
+                        LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        v = vi.inflate(R.layout.polls_list_item, null);
+                    }
+                    TextView tv = (TextView) v.findViewById(R.id.pollsPageTVItem);
+                    tv.setText(varList.get(position));
+                    RadioGroup radioGroup = v.findViewById(R.id.radioGroup1);
+                    View finalV = v;
+                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            RadioButton radioButton = finalV.findViewById(checkedId);
+                            checkList[position] = (String) radioButton.getText();
+                        }
+                    });
+                    return v;
+                }
+            };
             binding.pollsPageLV.setAdapter(arrayAdapter);
         } else {
             Toast.makeText(getContext(), "Нет данных", Toast.LENGTH_SHORT).show();
@@ -73,10 +107,22 @@ public class PollsPageFragment extends Fragment {
     }
 
     private void sendPolls() {
-        // TODO: 01.03.2022 Возможность отправки результатов анкетирования с сохранением в БД
-        Toast.makeText(getContext(), "Анкета отправлена!", Toast.LENGTH_SHORT).show();
-        navController.popBackStack();
+        String a1 = title;
+        String a2 = var1;
+        String a3 = checkList[0];
+        String a4 = var2;
+        String a5 = checkList[1];
+        String a6 = var3;
+        String a7 = checkList[2];
+        if (a3 != null && a5 != null && a7 != null && !a3.isEmpty() && !a5.isEmpty() && !a7.isEmpty()) {
+            DBHelperReview myDB = new DBHelperReview(getContext());
+            myDB.addPollsAnswer(a1, a2, a3, a4, a5, a6, a7);
+            navController.popBackStack();
+        } else {
+            Toast.makeText(getContext(), "Заполните анкету!", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     @Override
     public void onDestroyView() {
