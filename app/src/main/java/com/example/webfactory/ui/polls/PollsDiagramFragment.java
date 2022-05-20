@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -128,27 +127,20 @@ public class PollsDiagramFragment extends Fragment {
                 answers_ans3.stream().collect(Collectors.groupingBy(
                         Function.identity(), Collectors.counting()));
 
-        ArrayList<Integer> color1 = new ArrayList<>();
-        ArrayList<Integer> color2 = new ArrayList<>();
-        ArrayList<Integer> color3 = new ArrayList<>();
 
         frequency1.forEach((k, v) -> {
             switch (k) {
                 case "Да":
                     answers_count1.set(0, v);
-                    color1.add(Color.GREEN);
                     break;
                 case "Скорее да, чем нет":
                     answers_count1.set(1, v);
-                    color1.add(Color.BLUE);
                     break;
                 case "Скорее нет, чем да":
                     answers_count1.set(2, v);
-                    color1.add(Color.YELLOW);
                     break;
                 case "Нет":
                     answers_count1.set(3, v);
-                    color1.add(Color.RED);
                     break;
             }
         });
@@ -157,19 +149,19 @@ public class PollsDiagramFragment extends Fragment {
             switch (k) {
                 case "Да":
                     answers_count2.set(0, v);
-                    color2.add(Color.GREEN);
+                    //color2.set(0, Color.GREEN);
                     break;
                 case "Скорее да, чем нет":
                     answers_count2.set(1, v);
-                    color2.add(Color.BLUE);
+                    //color2.set(1, Color.BLUE);
                     break;
                 case "Скорее нет, чем да":
                     answers_count2.set(2, v);
-                    color2.add(Color.YELLOW);
+                    //color2.set(2, Color.YELLOW);
                     break;
                 case "Нет":
                     answers_count2.set(3, v);
-                    color2.add(Color.RED);
+                    //color2.set(3, Color.RED);
                     break;
             }
         });
@@ -178,31 +170,26 @@ public class PollsDiagramFragment extends Fragment {
             switch (k) {
                 case "Да":
                     answers_count3.set(0, v);
-                    color3.add(Color.GREEN);
+                   // color3.set(0, Color.GREEN);
                     break;
                 case "Скорее да, чем нет":
                     answers_count3.set(1, v);
-                    color3.add(Color.BLUE);
+                    //color3.set(1, Color.BLUE);
                     break;
                 case "Скорее нет, чем да":
                     answers_count3.set(2, v);
-                    color3.add(Color.YELLOW);
                     break;
                 case "Нет":
                     answers_count3.set(3, v);
-                    color3.add(Color.RED);
                     break;
             }
         });
 
         ArrayList<ArrayList<Long>> arrayListCounts = new ArrayList<ArrayList<Long>>();
-        ArrayList<ArrayList<Integer>> colors = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Map<String, Integer>> colors = new ArrayList<Map<String, Integer>>();
         arrayListCounts.add(answers_count1);
         arrayListCounts.add(answers_count2);
         arrayListCounts.add(answers_count3);
-        colors.add(color1);
-        colors.add(color2);
-        colors.add(color3);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.polls_diagram_item, R.id.pollsDiagramTV, varList) {
             @NonNull
@@ -222,9 +209,25 @@ public class PollsDiagramFragment extends Fragment {
                 ArrayList<PieEntry> yEntrys = new ArrayList<>();
                 ArrayList<String> xEntrys = new ArrayList<>();
 
+                ArrayList<ArrayList<Integer>> colors1 = new ArrayList<ArrayList<Integer>>();
+                ArrayList<ArrayList<Integer>> colors2 = new ArrayList<ArrayList<Integer>>(4);
+                colors1.add(new ArrayList<>());
+                colors1.add(new ArrayList<>());
+                colors1.add(new ArrayList<>());
+                colors2.add(new ArrayList<>());
+                colors2.add(new ArrayList<>());
+                colors2.add(new ArrayList<>());
+                colors1.get(position).add(Color.GREEN);
+                colors1.get(position).add(Color.BLUE);
+                colors1.get(position).add(Color.YELLOW);
+                colors1.get(position).add(Color.RED);
+
+
                 for (int i = 0; i < arrayListCounts.get(position).size(); i++) {
                     if (arrayListCounts.get(position).get(i) != 0) {
                         yEntrys.add(new PieEntry(arrayListCounts.get(position).get(i), i));
+                        if(arrayListCounts.get(position).get(i) != 0l)
+                        colors2.get(position).add(colors1.get(position).get(i));
                     }
                 }
 
@@ -235,14 +238,7 @@ public class PollsDiagramFragment extends Fragment {
                 pieDataSet.setSliceSpace(2);
                 pieDataSet.setValueTextSize(18);
 
-//                ArrayList<Integer> colors = new ArrayList<>();
-//                colors.add(Color.GREEN);
-//                colors.add(Color.BLUE);
-//                colors.add(Color.YELLOW);
-//                colors.add(Color.RED);
-
-
-                pieDataSet.setColors(colors.get(position));
+               pieDataSet.setColors(colors2.get(position));
 
                 Legend legend = pieChart.getLegend();
                 legend.setForm(Legend.LegendForm.CIRCLE);

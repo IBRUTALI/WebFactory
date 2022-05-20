@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<News> newsArrayList;
     private NewsAdapter adapter;
     private String country = "ru";
-    private String category = "business";
+    private String category = "technology";
 
     public HomeFragment() {
         super(R.layout.fragment_home);
