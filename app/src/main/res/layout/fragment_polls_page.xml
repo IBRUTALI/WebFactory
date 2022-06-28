@@ -6,7 +6,7 @@
     android:id="@+id/pollsPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.webfactory.ui.polls.PollsPageFragment">
+    tools:context=".presentation.polls.PollsPageFragment">
 
         <TextView
             android:id="@+id/pollsPageTitle"

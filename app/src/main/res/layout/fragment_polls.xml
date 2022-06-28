@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/pollFragment"
-    tools:context=".ui.polls.PollsFragment">
+    tools:context=".presentation.polls.PollsFragment">
 
     <TextView
         android:id="@+id/text_polls"

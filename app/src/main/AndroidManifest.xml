@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.webfactory">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -10,10 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WebFactory">
-        <activity android:name=".ui.slideshow.ReviewPageFragment"></activity>
-        <activity android:name=".ui.home.WebView"></activity>
+        <activity android:name=".presentation.review.ReviewPageFragment"></activity>
+        <activity android:name=".presentation.home.WebView"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.WebFactory.NoActionBar"
             android:exported="true">

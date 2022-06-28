@@ -1,2 +1,4 @@
 include ':app'
 rootProject.name = "WebFactory"
+include ':data'
+include ':domain'

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/reviewFragment"
-    tools:context=".ui.slideshow.ReviewFragment">
+    tools:context=".presentation.review.ReviewFragment">
 
     <Button
         android:id="@+id/button_review"

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.webfactory.R;
 import com.example.webfactory.model.News;
-import com.example.webfactory.ui.home.WebView;
+import com.example.webfactory.presentation.home.WebView;
 
 import java.util.ArrayList;
 
