@@ -1,4 +1,4 @@
-package com.example.data.storage
+package com.example.data.storage.users
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth

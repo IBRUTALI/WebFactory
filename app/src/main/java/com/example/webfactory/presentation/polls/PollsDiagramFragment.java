@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.webfactory.Databases.DBHelperReview;
+import com.example.data.databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.databinding.FragmentPollsDiagramBinding;
 import com.github.mikephil.charting.charts.PieChart;
@@ -66,7 +66,7 @@ public class PollsDiagramFragment extends Fragment {
     }
 
     private void storeDataInArrays() {
-        Cursor cursor = dBHelperReview.readAllDataPA();
+        Cursor cursor = dBHelperReview.readAllDataAnswers();
         answers_id = new ArrayList<>();
         answers_title = new ArrayList<>();
         answers_var1 = new ArrayList<>();

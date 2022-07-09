@@ -1,4 +1,4 @@
-package com.example.data.storage
+package com.example.data.storage.users
 
 interface UserStorage {
 

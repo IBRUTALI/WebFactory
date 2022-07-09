@@ -1,6 +1,6 @@
 package com.example.data.repository
 
-import com.example.data.storage.UserStorage
+import com.example.data.storage.users.UserStorage
 import com.example.domain.models.User
 import com.example.domain.repository.AuthRepository
 
@@ -26,8 +26,8 @@ class AuthRepositoryImpl(private val userStorage: UserStorage) : AuthRepository 
         return User(email = user.getEmail())
     }
 
-    private fun mapToStorage(user: User): com.example.data.storage.User {
-        return com.example.data.storage.User(email = user.getEmail())
+    private fun mapToStorage(user: User): com.example.data.storage.users.User {
+        return com.example.data.storage.users.User(email = user.getEmail())
     }
 
 }

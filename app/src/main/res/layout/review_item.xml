@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/side_nav_bar" />
 
     <TextView
-        android:id="@+id/categoryTitle"
+        android:id="@+id/reviewItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.481" />
 
     <TextView
-        android:id="@+id/categoryId"
+        android:id="@+id/reviewItemId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/categoryAuthorText"
+        android:id="@+id/reviewItemAuthorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -62,12 +62,12 @@
         android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/categoryId"
+        app:layout_constraintStart_toEndOf="@+id/reviewItemId"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/categoryAuthor"
+        android:id="@+id/reviewItemAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -78,12 +78,12 @@
         android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/categoryAuthorText"
+        app:layout_constraintStart_toEndOf="@+id/reviewItemAuthorText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/categoryDate"
+        android:id="@+id/reviewItemDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"

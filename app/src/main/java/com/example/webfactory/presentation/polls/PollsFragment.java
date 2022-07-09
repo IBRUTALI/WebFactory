@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.webfactory.Databases.DBHelperReview;
+import com.example.data.databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.adapter.PollsAdapter;
 import com.example.webfactory.databinding.FragmentPollsBinding;
@@ -52,7 +52,7 @@ public class PollsFragment extends Fragment {
 
         categoryList = new ArrayList<>();
 
-        storeDataInArrays();
+     //   storeDataInArrays();
 
         //Подруб адаптера и списка
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -70,77 +70,77 @@ public class PollsFragment extends Fragment {
         return root;
     }
 
-    private void storeDataInArrays() {
-        Cursor cursor1 = dBHelperReview1.readAllData();
-        Cursor cursor2 = dBHelperReview2.readAllDataP();
-        if (cursor2.getCount() == 0) {
-            Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
-        } else {
-            while (cursor2.moveToNext()) {
-                polls_id.add(cursor2.getString(0));
-                polls_title.add(cursor2.getString(1));
-                polls_var1.add(cursor2.getString(2));
-                polls_var2.add(cursor2.getString(3));
-                polls_var3.add(cursor2.getString(4));
-            }
-            if (cursor1.getCount() == 0) {
-            } else {
-                while (cursor1.moveToNext()) {
-                    categoryList.add(cursor1.getString(3));
-                }
-            }
-        }
-        Map<String, Long> frequency =
-                categoryList.stream().collect(Collectors.groupingBy(
-                        Function.identity(), Collectors.counting()));
-
-
-        frequency.forEach((k, v) -> {
-            String check = "";
-            for (int i = 0; i < polls_title.size(); i++) {
-                if (polls_title.get(i).equals("Автоматическая анкета: " + k)) {
-                    check = "Автоматическая анкета: " + k;
-                    return;
-                }
-            }
-            if (v >= 2 && !check.equals("Автоматическая анкета: " + k)) {
-                DBHelperReview myDB = new DBHelperReview(getContext());
-                String a1 = "Автоматическая анкета: " + k;
-                String a2 = "";
-                String a3 = "";
-                String a4 = "";
-                switch (k){
-                    case "Столовая":
-                         a2 = "Вас устраивает качество пищи?";
-                         a3 = "Вас устраивает качество оказываемых услуг?";
-                         a4 = "Есть ли у вас какие-либо претензии к работе столовой?";
-                        break;
-                    case "Производство":
-                        a2 = "Станки безопасные?";
-                        a3 = "Освещение хорошее?";
-                        a4 = "Воздух чистый?";
-                        break;
-                    case "Быт":
-                        a2 = "Туалеты хорошие?";
-                        a3 = "Уборщицы убираются?";
-                        a4 = "Мыло есть?";
-                        break;
-                    case "Руководство":
-                        a2 = "Руководство хорошее?";
-                        a3 = "Руководство часто приходит?";
-                        a4 = "Руководство заслуживает свою зп?";
-                        break;
-                    case "Другое":
-                        a2 = "Что вам нравится?";
-                        a3 = "Хотите чебурек?";
-                        a4 = "Как вам моя машина?";
-                        break;
-                }
-                myDB.addPolls(a1, a2, a3, a4);
-
-            }
-        });
-    }
+//    private void storeDataInArrays() {
+//        Cursor cursor1 = dBHelperReview1.readAllDataReview();
+//        Cursor cursor2 = dBHelperReview2.readAllDataPolls();
+//        if (cursor2.getCount() == 0) {
+//            Toast.makeText(getContext(), "Нет данных ", Toast.LENGTH_SHORT).show();
+//        } else {
+//            while (cursor2.moveToNext()) {
+//                polls_id.add(cursor2.getString(0));
+//                polls_title.add(cursor2.getString(1));
+//                polls_var1.add(cursor2.getString(2));
+//                polls_var2.add(cursor2.getString(3));
+//                polls_var3.add(cursor2.getString(4));
+//            }
+//            if (cursor1.getCount() == 0) {
+//            } else {
+//                while (cursor1.moveToNext()) {
+//                    categoryList.add(cursor1.getString(3));
+//                }
+//            }
+//        }
+//        Map<String, Long> frequency =
+//                categoryList.stream().collect(Collectors.groupingBy(
+//                        Function.identity(), Collectors.counting()));
+//
+//
+//        frequency.forEach((k, v) -> {
+//            String check = "";
+//            for (int i = 0; i < polls_title.size(); i++) {
+//                if (polls_title.get(i).equals("Автоматическая анкета: " + k)) {
+//                    check = "Автоматическая анкета: " + k;
+//                    return;
+//                }
+//            }
+//            if (v >= 2 && !check.equals("Автоматическая анкета: " + k)) {
+//                DBHelperReview myDB = new DBHelperReview(getContext());
+//                String a1 = "Автоматическая анкета: " + k;
+//                String a2 = "";
+//                String a3 = "";
+//                String a4 = "";
+//                switch (k){
+//                    case "Столовая":
+//                         a2 = "Вас устраивает качество пищи?";
+//                         a3 = "Вас устраивает качество оказываемых услуг?";
+//                         a4 = "Есть ли у вас какие-либо претензии к работе столовой?";
+//                        break;
+//                    case "Производство":
+//                        a2 = "Станки безопасные?";
+//                        a3 = "Освещение хорошее?";
+//                        a4 = "Воздух чистый?";
+//                        break;
+//                    case "Быт":
+//                        a2 = "Туалеты хорошие?";
+//                        a3 = "Уборщицы убираются?";
+//                        a4 = "Мыло есть?";
+//                        break;
+//                    case "Руководство":
+//                        a2 = "Руководство хорошее?";
+//                        a3 = "Руководство часто приходит?";
+//                        a4 = "Руководство заслуживает свою зп?";
+//                        break;
+//                    case "Другое":
+//                        a2 = "Что вам нравится?";
+//                        a3 = "Хотите чебурек?";
+//                        a4 = "Как вам моя машина?";
+//                        break;
+//                }
+//                myDB.addPollsDB(a1, a2, a3, a4);
+//
+//            }
+//        });
+//    }
 
     private void showPollsOnWindow() {
 
@@ -163,7 +163,7 @@ public class PollsFragment extends Fragment {
                 String a3 = editText3.getText().toString();
                 String a4 = editText4.getText().toString();
 
-                myDB.addPolls(a1, a2, a3, a4);
+                myDB.addPollsDB(a1, a2, a3, a4);
                 alertDialog.dismiss();
 
             }

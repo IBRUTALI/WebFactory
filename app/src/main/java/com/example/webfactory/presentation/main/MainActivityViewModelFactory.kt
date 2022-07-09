@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.data.repository.AuthRepositoryImpl
-import com.example.data.storage.SharedPrefUserStorage
+import com.example.data.storage.users.SharedPrefUserStorage
 import com.example.domain.usecases.main.SignOutUseCase
 
 class MainActivityViewModelFactory(context: Context) : ViewModelProvider.Factory {

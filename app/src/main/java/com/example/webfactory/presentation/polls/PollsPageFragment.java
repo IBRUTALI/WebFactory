@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.webfactory.Databases.DBHelperReview;
+import com.example.data.databases.DBHelperReview;
 import com.example.webfactory.R;
 import com.example.webfactory.databinding.FragmentPollsPageBinding;
 
@@ -112,7 +112,7 @@ public class PollsPageFragment extends Fragment {
         String a7 = checkList[2];
         if (a3 != null && a5 != null && a7 != null && !a3.isEmpty() && !a5.isEmpty() && !a7.isEmpty()) {
             DBHelperReview myDB = new DBHelperReview(getContext());
-            myDB.addPollsAnswer(a1, a2, a3, a4, a5, a6, a7);
+            myDB.addPollsAnswerDB(a1, a2, a3, a4, a5, a6, a7);
             navController.popBackStack();
         } else {
             Toast.makeText(getContext(), "Заполните анкету!", Toast.LENGTH_SHORT).show();
