@@ -14,11 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.domain.models.User
 import com.example.webfactory.databinding.FragmentLoginBinding
+import io.reactivex.rxjava3.core.Single
 
 class LoginFragment : Fragment() {
 
-    private var binding: FragmentLoginBinding? = null
-    private var navController: NavController? = null
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var navController: NavController
 
     private lateinit var viewModel: LoginFragmentViewModel
 
@@ -33,33 +35,35 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentLoginBinding.bind(view)
+        _binding = FragmentLoginBinding.bind(view)
         navController = findNavController(view)
 
-        viewModel = ViewModelProvider(this, LoginFragmentViewModelFactory(requireContext()))
+        viewModel = ViewModelProvider(
+            this,
+            LoginFragmentViewModelFactory(requireContext())
+        )
             .get(LoginFragmentViewModel::class.java)
 
-
-        binding!!.login.setOnClickListener {
+        binding.login.setOnClickListener {
             login(
-                User(email = binding!!.username.text.toString()),
-                binding!!.password.text.toString()
+                User(email = binding.username.text.toString()),
+                password = binding.password.text.toString()
             )
         }
-        binding!!.register.setOnClickListener {
+        binding.register.setOnClickListener {
             register(
-                User(email = binding!!.username.text.toString()),
-                binding!!.password.text.toString()
+                User(email = binding.username.text.toString()),
+                password = binding.password.text.toString()
             )
         }
 
     }
 
     private fun login(user: User, password: String) {
-        if (viewModel.login(user, password)) {
-            Toast.makeText(context, "Авторизация прошла успешно!", Toast.LENGTH_SHORT)
-                .show()
-            navController!!.navigate(R.id.action_loginFragment_to_nav_home)
+        viewModel.login(user, password)
+        if(viewModel.userAuthState()){
+            Toast.makeText(context, "Авторизация прошла успешно!", Toast.LENGTH_SHORT).show()
+            navController.navigate(R.id.action_loginFragment_to_nav_home)
         } else {
             Toast.makeText(context, "Авторизация провалена!", Toast.LENGTH_SHORT).show()
         }
@@ -76,7 +80,7 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 
 }

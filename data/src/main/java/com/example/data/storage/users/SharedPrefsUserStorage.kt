@@ -14,9 +14,8 @@ class SharedPrefUserStorage(private val context: Context) : UserStorage {
         auth.signOut()
     }
 
-    override fun login(user: User, password: String): Boolean {
+    override fun login(user: User, password: String) {
         auth.signInWithEmailAndPassword(user.getEmail(), password)
-        return true
     }
 
     override fun register(user: User, password: String): Boolean {

@@ -45,12 +45,16 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
         reviewAdapter = context?.let { ReviewAdapter(it, reviewList!!) }
         recyclerView.adapter = reviewAdapter
 
+        
+
         binding!!.tabLayoutReview.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 reviewAdapter?.filter?.filter(tab.text)
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                reviewAdapter?.filter?.filter(tab.text)
+            }
             override fun onTabReselected(tab: TabLayout.Tab) {}
 
         })

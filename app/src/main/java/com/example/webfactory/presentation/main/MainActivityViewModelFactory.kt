@@ -10,7 +10,7 @@ import com.example.domain.usecases.main.SignOutUseCase
 class MainActivityViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
     private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
-        AuthRepositoryImpl(userStorage = SharedPrefUserStorage(context = context))
+        AuthRepositoryImpl()
     }
 
     private val optionsItemUseCase by lazy(LazyThreadSafetyMode.NONE) {

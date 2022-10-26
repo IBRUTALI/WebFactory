@@ -6,6 +6,6 @@ interface UserStorage {
 
     fun register(user: User, password: String): Boolean
 
-    fun login(user: User, password: String): Boolean
+    fun login(user: User, password: String)
 
 }
