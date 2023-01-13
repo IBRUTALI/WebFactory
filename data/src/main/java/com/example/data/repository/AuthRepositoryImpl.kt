@@ -7,11 +7,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
-
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 
 class AuthRepositoryImpl : AuthRepository {
     private val auth: FirebaseAuth = Firebase.auth
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     override fun isUserAuthenticatedInFirebase() = auth.currentUser != null
 
@@ -19,31 +23,29 @@ class AuthRepositoryImpl : AuthRepository {
         auth.signOut()
     }
 
-    override fun login(user: User, password: String) {
-        auth.signInWithEmailAndPassword(user.getEmail(), password)
+    override fun login(user: User, password: String): Flow<Boolean> = flow {
+        try {
+            auth.signInWithEmailAndPassword(user.getEmail(), password).await()
+            Log.d("AAA", "TRUE")
+            emit(true)
+        } catch (e: Exception) {
+            Log.d("AAA", "FALSE")
+            emit(false)
+        }
+    }
+
+    override fun getFirebaseAuthState() = callbackFlow  {
+        val authStateListener = FirebaseAuth.AuthStateListener { auth ->
+            trySend(auth.currentUser == null)
+        }
+        auth.addAuthStateListener(authStateListener)
+        awaitClose {
+            auth.removeAuthStateListener(authStateListener)
+        }
     }
 
     override fun register(user: User, password: String): Boolean {
-        //   val userMap = mapToStorage(user)
         auth.createUserWithEmailAndPassword(user.getEmail(), password)
         return true
     }
-
-//    private suspend fun authResult(user: User, password: String): Boolean =
-//        coroutineScope.async(Dispatchers.IO) {
-//            auth.signInWithEmailAndPassword(user.getEmail(), password)
-//        return@async auth.signInWithEmailAndPassword(user.getEmail(), password).isSuccessful
-//    }.await()
-
-
-
-
-//    private fun mapToDomain(user: User): User {
-//        return User(email = user.getEmail())
-//    }
-
-//    private fun mapToStorage(user: User): com.example.data.storage.users.User {
-//        return com.example.data.storage.users.User(email = user.getEmail())
-//    }
-
 }

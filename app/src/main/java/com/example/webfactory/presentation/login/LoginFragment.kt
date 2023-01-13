@@ -1,20 +1,22 @@
 package com.example.webfactory.presentation.login
 
-import androidx.navigation.Navigation.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import androidx.navigation.NavController
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
-import com.example.webfactory.R
-import android.app.Activity
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
 import com.example.domain.models.User
+import com.example.webfactory.R
 import com.example.webfactory.databinding.FragmentLoginBinding
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
 
@@ -44,6 +46,8 @@ class LoginFragment : Fragment() {
         )
             .get(LoginFragmentViewModel::class.java)
 
+        isUserAuth()
+
         binding.login.setOnClickListener {
             login(
                 User(email = binding.username.text.toString()),
@@ -59,14 +63,18 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun login(user: User, password: String) {
-        viewModel.login(user, password)
-        if(viewModel.userAuthState()){
-            Toast.makeText(context, "Авторизация прошла успешно!", Toast.LENGTH_SHORT).show()
+    private fun isUserAuth() {
+        if (viewModel.isUserAuthenticated) {
             navController.navigate(R.id.action_loginFragment_to_nav_home)
-        } else {
-            Toast.makeText(context, "Авторизация провалена!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun login(user: User, password: String) {
+        viewModel.login(user, password).asLiveData().observe(viewLifecycleOwner, {
+            if (it == true) {
+                navController.navigate(R.id.action_loginFragment_to_nav_home)
+            }
+            })
     }
 
     private fun register(user: User, password: String) {
